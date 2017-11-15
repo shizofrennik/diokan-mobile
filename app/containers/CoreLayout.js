@@ -3,7 +3,7 @@ import { Root, Container } from 'native-base';
 import NavigationRouter from './NavigationRouter';
 import { StatusBar } from 'react-native';
 
-const RootContainer = () => (
+const RootContainer = (props) => (
   <Root>
     <Container style={{ flex: 1 }}>
       <StatusBar backgroundColor="#046cb4"/>

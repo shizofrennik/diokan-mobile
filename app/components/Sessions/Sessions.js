@@ -7,8 +7,8 @@ import {connect} from 'react-redux';
 import Spinner from '../../components/Common/Spinner';
 
 class Sessions extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     
   }
   
@@ -23,6 +23,7 @@ class Sessions extends Component {
         <Text onPress={Actions.edit}>Sessions</Text>
         <Text>{currentUser.name}</Text>
         <Text>{currentUser.email}</Text>
+        <Text onPress={this.props.auth.logout}>Logout</Text>
       </View>)
   }
 }

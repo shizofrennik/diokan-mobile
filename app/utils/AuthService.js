@@ -1,6 +1,7 @@
 import {isTokenExpired} from './jwtHelper';
 import Auth0 from 'react-native-auth0';
 import * as api from '../api';
+import {Actions} from 'react-native-router-flux';
 export const auth0DatabaseConnection = "Username-Password-Authentication";
 const auth0api = "https://dmkryhtin.auth0.com/api/v2/";
 import * as common from '../utils/common';
@@ -91,13 +92,14 @@ export default class AuthService {
     });
   }
 
-  // logout() {
-  //   localStorage.removeItem('authTokenDiokan');
-  //   localStorage.removeItem('profileDiokan');
-  //   localStorage.removeItem('authRefreshTokenDiokan');
-  //   setAuthorizationHeader();
-  //   browserHistory.replace('/login');
-  // }
+  logout() {
+    // return global.storage.multiRemove(['authTokenDiokan', 'profileDiokan', 'authRefreshTokenDiokan']).then(() => Actions.replace('login'));
+    global.storage.remove({key: 'authTokenDiokan'});
+    global.storage.remove({key: 'profileDiokan'});
+    global.storage.remove({key: 'authRefreshTokenDiokan'});
+    // setAuthorizationHeader();
+    Actions.replace('login');
+  }
 
   setProfile(profile) {
     return global.storage.save({
@@ -123,7 +125,7 @@ export default class AuthService {
   getToken() {
     return global.storage.load({
       key: "authTokenDiokan"
-    });
+    }).then(token => token, err => false);
   }
 
   getRefreshToken() {

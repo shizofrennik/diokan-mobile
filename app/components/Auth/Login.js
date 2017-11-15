@@ -7,8 +7,8 @@ import logo from '../../assets/images/diokan-logo.png';
 import * as common from '../../utils/common';
 
 class Login extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
       password: "",
@@ -28,7 +28,7 @@ class Login extends Component {
     if(isValidEmail && isValidPass) {
       this.setState({spinner: true});
       this.props.auth._doAuthentication(this.state.email, this.state.password, this.state.remember).then(() => {
-        Actions.app;
+        Actions.replace('app');
       }).catch((error) => {
         this.setState({spinner: false, authError: true});
       });
