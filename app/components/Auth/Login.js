@@ -5,6 +5,8 @@ import {View, Text, Image, TextInput, Button, TouchableHighlight} from 'react-na
 import {Actions} from 'react-native-router-flux';
 import logo from '../../assets/images/diokan-logo.png';
 import * as common from '../../utils/common';
+import authStyles from '../../assets/styles/auth';
+import {auth} from '../../containers/NavigationRouter';
 
 class Login extends Component {
   constructor(props) {
@@ -27,7 +29,7 @@ class Login extends Component {
     let isValidPass = common.validatePass(this.state.password);
     if(isValidEmail && isValidPass) {
       this.setState({spinner: true});
-      this.props.auth._doAuthentication(this.state.email, this.state.password, this.state.remember).then(() => {
+      auth._doAuthentication(this.state.email, this.state.password, this.state.remember).then(() => {
         Actions.replace('app');
       }).catch((error) => {
         this.setState({spinner: false, authError: true});
@@ -37,18 +39,18 @@ class Login extends Component {
 
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: "#0788e2", justifyContent: "center"}}>
-        <View style={{alignItems: "center", marginHorizontal: 40}}>
-          <Image source={logo} style={{width: "80%", resizeMode: "contain", marginBottom: 50}}/>
+      <View style={authStyles.container}>
+        <View style={authStyles.centerWrapper}>
+          <Image source={logo} style={authStyles.logo}/>
           <TextInput
-            style={{width: "100%", marginBottom: 20, fontSize: 16, color: "#fff"}}
+            style={authStyles.input}
             placeholderTextColor="white"
             underlineColorAndroid="#5eb5eb"
             placeholder="Email Address"
             onChangeText={(email) => this.setState({email})}
             value={this.state.text}/>
           <TextInput
-            style={{width: "100%", marginBottom: 20, fontSize: 16, color: "#fff"}}
+            style={authStyles.input}
             placeholderTextColor="white"
             underlineColorAndroid="#5eb5eb"
             placeholder="Password"
@@ -57,9 +59,9 @@ class Login extends Component {
             value={this.state.text}/>
           <TouchableHighlight
             underlayColor="#e9eef1"
-            style={{width: "100%", backgroundColor: "white", padding: 15, borderRadius: 3}}
+            style={authStyles.loginBtn}
             onPress={this.handleSubmit}>
-            <Text style={{color: "#12a3e1", fontSize: 16, textAlign: "center"}}>Log in</Text>
+            <Text style={authStyles.loginBtnText}>Log in</Text>
           </TouchableHighlight>
         </View>
       </View>
