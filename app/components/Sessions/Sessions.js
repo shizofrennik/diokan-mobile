@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, TouchableHighlight } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import {getCurrentUser} from '../../store/user'
+import {getSessions} from '../../store/sessions'
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Spinner from '../../components/Common/Spinner';
@@ -12,17 +13,21 @@ class Sessions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: [{key: "1", email: "John Doe", photosCount: "Upload photos #513 - 543"}, {key: "2", email: "Jennifer Quinn", photosCount: "Upload photos #502 - 512"}, {key: "3", email: "Aneeta Armstead", photosCount: "Photos sent to client #485 - 501"},{key: "4", email: "John Doe", photosCount: "Upload photos #513 - 543"}, {key: "5", email: "Jennifer Quinn", photosCount: "Upload photos #502 - 512"}, {key: "6", email: "Aneeta Armstead", photosCount: "Photos sent to client #485 - 501"}, {key: "7", email: "John Doe", photosCount: "Upload photos #513 - 543"}, {key: "8", email: "Jennifer Quinn", photosCount: "Upload photos #502 - 512"}, {key: "9", email: "Aneeta Armstead", photosCount: "Photos sent to client #485 - 501"},{key: "10", email: "John Doe", photosCount: "Upload photos #513 - 543"}, {key: "11", email: "Jennifer Quinn", photosCount: "Upload photos #502 - 512"}, {key: "12", email: "Aneeta Armstead", photosCount: "Photos sent to client #485 - 501"}]
+      fetchingData: true
     }
   }
   
   componentWillMount() {
-    this.props.getCurrentUser()
+    let {getCurrentUser, getSessions} = this.props;
+    Promise.all([
+      getCurrentUser(), 
+      getSessions()
+    ]).then(() => this.setState({fetchingData: false})).catch(console.log);
   }
 
   render() {
-    let {currentUser} = this.props;
-    return !currentUser.id ? <Spinner /> :
+    let {currentUser, sessions} = this.props;
+    return this.state.fetchingData ? <Spinner /> :
     // (<View>
     //     <Text onPress={Actions.edit}>Sessions</Text>
     //     <Text>{currentUser.name}</Text>
@@ -30,10 +35,10 @@ class Sessions extends Component {
     //     <Text onPress={this.props.auth.logout}>Logout</Text>
     //   </View>)
       (<View>
-        <FlatList data={this.state.list} renderItem={({item}) => <ListItem button key={item.id} onPress={Actions.edit} item={item}/>}/>
+        <FlatList data={sessions} keyExtractor={item => item.id} renderItem={({item}) => <ListItem onPress={Actions.edit} session={item}/>}/>
         <TouchableHighlight
           style={sessionStyle.addBtn}
-          onPress={Actions.edit}>
+          onPress={Actions.createSession}>
           <Text style={sessionStyle.addBtnText}>+</Text>
         </TouchableHighlight>
       </View>)
@@ -42,13 +47,19 @@ class Sessions extends Component {
 
 const mapStateToProps = (state, props) => {
   return ({
-    currentUser: state.user.currentUser
+    currentUser: state.user.currentUser,
+    sessions: state.sessions.sessions,
+    filters: state.sessions.filters,
+    fetching: state.sessions.fetchingSessions,
+    count: state.sessions.total_count,
+    pagination: state.sessions.pagination
   })
 }
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    getCurrentUser
+    getCurrentUser,
+    getSessions
   }, dispatch);
 }
 

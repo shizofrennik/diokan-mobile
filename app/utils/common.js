@@ -1,3 +1,14 @@
+export function getClientName(user, sessionName = null) {
+  if(sessionName) return sessionName;
+  if(user) {
+    let {first_name, last_name} = user;
+    if (!first_name && !last_name) return user.email;
+    return `${(first_name || '')} ${(last_name || '')}`
+  } else {
+    return 'Client'
+  }
+}
+
 export function validateEmail(email) {
   var emailRegexp = /^[-!#$%&'*+\/0-9=?A-Z^_a-z{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-?\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
   if (!email)

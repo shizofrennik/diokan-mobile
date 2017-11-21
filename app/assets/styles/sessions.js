@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {mainTextColor, secondaryTextColor, lightGrey, mainColor} from './variables';
+import {mainTextColor, secondaryTextColor, lightGrey, mainColor, successColor} from './variables';
 
 export default sessionStyles = StyleSheet.create({
   listElement: {
@@ -36,13 +36,15 @@ export default sessionStyles = StyleSheet.create({
   },
   showContainer: {
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    backgroundColor: "white"
   },
   showHeader: {
     flex: 1,
     backgroundColor: mainColor,
     paddingTop: 15,
-    paddingLeft: 70
+    paddingLeft: 70,
+    paddingBottom: 40
   },
   showHeaderTitle: {
     fontSize: 34,
@@ -54,6 +56,33 @@ export default sessionStyles = StyleSheet.create({
   },
   showBody: {
     flex: 3,
-    backgroundColor: "white"
+    paddingTop: 25
+  },
+  showListElement: {
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    flexDirection: "row"
+  },
+  showListContent: {
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  showListContentIcon: {
+    width: 25,
+    height: 25,
+    marginRight: 30,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  showListContentText: {
+    fontSize: 16
+  },
+  showListTextSuccess: {
+    fontSize: 16,
+    color: successColor
+  },
+  showListTextPrimary: {
+    fontSize: 16,
+    color: mainColor
   }
 })

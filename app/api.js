@@ -53,3 +53,54 @@ export function fetchUpdatePhotographer(user_fields) {
     });
   })
 }
+
+export function fetchSessions(filters = {order: 0, search_string: ''}, pagination = {count: 10, offset: 0}) {
+  const body = {
+    query: 'query Session($pagination:PaginationInput!, $filters:PhotoSessionFiltersInput!) { photographer_photo_sessions (pagination:$pagination, filters:$filters) { results { id name date photo_start photo_end location status users { id first_name last_name email phone } } total_count }}',
+    variables: {
+      pagination,
+      filters
+    }
+  }
+
+  return getAuthHeaders().then(headers => {
+    return fetch(API_URL, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body)
+    }).then(resp => {
+      return resp.json();
+    });
+  })
+}
+
+export function fetchCreateSession() {
+  
+}
+
+export function fetchUpdateSession() {
+
+}
+
+export function fetchUpdateStatus() {
+
+}
+
+export function fetchSession() {
+
+}
+
+export function fetchDestroyPhotoSession() {
+
+}
+export function fetchDestroyPhotoFromSession() {
+
+}
+
+export function fetchValidateEmails() {
+
+}
+
+export function fetchDeleteUserFromPhotoSession() {
+
+}

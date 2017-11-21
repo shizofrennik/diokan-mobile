@@ -7,7 +7,7 @@ export default appStyles = StyleSheet.create({
     shadowColor: 'transparent',
     shadowOpacity: 0,
     shadowRadius: 0,
-    elevation: 0,
+    elevation: 0
   },
   headerTitle: {
     color: "white",
