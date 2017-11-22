@@ -15,7 +15,7 @@ class ShowNavBar extends Component {
   getMenu() {
     let { setShowControls } = this.props;
     return (
-      <View style={}>
+      <View style={appStyles.customHeaderBody}>
         <TouchableHighlight
           underlayColor={touchColor}
           onPress={() => {
