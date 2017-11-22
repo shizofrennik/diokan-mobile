@@ -12,6 +12,7 @@ class Create extends Component {
     return (
       <View>
         <Text onPress={Actions.edit}>Create</Text>
+        <Text onPress={this.props.auth.logout}>Logout</Text>
       </View>
     )
   }

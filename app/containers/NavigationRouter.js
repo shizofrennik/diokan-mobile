@@ -1,13 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Scene, Router, Tabs, Lightbox, Stack, Drawer } from 'react-native-router-flux';
+import { View, Text } from 'react-native';
 import Login from '../components/Auth/Login';
 import Edit from '../components/Sessions/Edit';
+import Show from '../components/Sessions/Show';
+import Create from '../components/Sessions/Create';
+import ShowNavBar from '../components/Nav/ShowNavBar';
 import Sessions from '../components/Sessions/Sessions';
 import DrawerList from '../components/Nav/DrawerList';
 import InitialScreen from '../components/Nav/InitialScreen';
 import { Actions } from 'react-native-router-flux';
 import AuthService from '../utils/AuthService';
+import styles from '../assets/styles/app';
 
 export const requireAuth = () => {
   auth.loggedIn().then(logged => {
@@ -38,15 +42,17 @@ export const isLoggedIn = async () => {
 export const auth = new AuthService('diWSD6yI7yUkv6lzDaf4l8j0WE34B30S', 'dmkryhtin.auth0.com');
 
 const NavigationRouter = () => {
-  const initialKey = props => props.users.session ? 'authorized' : 'guest';
   return (
     <Router auth={auth}>
-      <Scene key="root" hideNavBar>
+      <Scene key="root" hideNavBar navigationBarStyle={styles.header} navBarButtonColor="white" titleStyle={styles.headerTitle}>
         <Scene key="initial" initial component={InitialScreen} onEnter={initialRedirect}/>
         <Scene key="login" title="Log in" component={Login} onEnter={isLoggedIn}/>
-        <Scene key="app" title="Diokan" onEnter={requireAuth}>
+        <Scene key="app" onEnter={requireAuth}>
           <Scene key="sessions" initial component={Sessions} title="Sessions" onEnter={requireAuth}/>
-          <Scene key="edit" component={Edit} title="Edit session" onEnter={requireAuth}/>
+          <Scene key="edit" component={Edit} title="Edit Session" onEnter={requireAuth}/>
+          <Scene key="createSession" component={Create} title="Add Session" onEnter={requireAuth}/>
+          {/*<Scene key="show" renderRightButton={() => <ShowControls />} navBar={} component={Show} onEnter={requireAuth}/>*/}
+          <Scene key="show" navBar={ShowNavBar} component={Show} onEnter={requireAuth}/>
         </Scene>
         {/*<Scene key="login" title="Log in" initial component={Login}/>
         <Scene key="drawer" component={DrawerList}>

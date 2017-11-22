@@ -6,7 +6,7 @@ import { StatusBar } from 'react-native';
 const RootContainer = (props) => (
   <Root>
     <Container style={{ flex: 1 }}>
-      <StatusBar backgroundColor="#046cb4"/>
+      <StatusBar backgroundColor="#046cb4" barStyle="light-content" />
       <NavigationRouter />
     </Container>
   </Root>
