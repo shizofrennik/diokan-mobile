@@ -28,12 +28,6 @@ export default sessionStyles = StyleSheet.create({
     bottom: 25,
     right: 25
   },
-  addBtnText: {
-    color: 'white',
-    fontSize: 42,
-    position: 'relative',
-    bottom: 1
-  },
   showContainer: {
     flex: 1,
     flexDirection: 'column',

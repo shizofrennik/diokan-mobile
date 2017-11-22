@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, TouchableHighlight } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import sessionStyle from '../../assets/styles/sessions';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {secondaryTextColor, touchColor} from '../../assets/styles/variables';
+import {secondaryTextColor} from '../../assets/styles/variables';
 import moment from 'moment';
-import {getClientName} from '../../utils/common';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -15,28 +13,10 @@ class Show extends Component {
 
   }
 
-  getMenu() {
-    return (
-      <View style={{width: 195, paddingVertical: 5, backgroundColor: "white", position: "absolute", top: 0, right: 5, elevation: 5, borderRadius: 5}}>
-        <TouchableHighlight underlayColor={touchColor} onPress={Actions.edit} style={{padding: 15}}>
-          <Text style={{fontSize: 16, color: "black"}}>Edit Session</Text>
-        </TouchableHighlight>
-        <TouchableHighlight underlayColor={touchColor} onPress={Actions.createSession} style={{padding: 15}}>
-          <Text style={{fontSize: 16, color: "black"}}>Delete Session</Text>
-        </TouchableHighlight>
-      </View>
-    )
-  }
-
   render() {
-    let {session, showMenu, selected} = this.props;
+    let {session} = this.props;
     return (
       <ScrollView style={sessionStyle.showContainer}>
-        <View style={sessionStyle.showHeader}>
-          <Text style={sessionStyle.showHeaderTitle}>{getClientName(session.users[0], session.name)}</Text>
-          <Text style={sessionStyle.showHeaderDesc}>{(session.photo_start && session.photo_end) ? `#${session.photo_start}-${session.photo_end}` : ""}</Text>
-          {showMenu && this.getMenu()}
-        </View>
         <View style={sessionStyle.showBody}>
           <View style={sessionStyle.showListElement}>
             <View style={sessionStyle.showListContentIcon}>
@@ -85,10 +65,7 @@ class Show extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  return ({
-    selected: state.sessions.selectedSession,
-    showMenu: state.sessions.showControls
-  })
+  return ({})
 }
 
 const mapDispatchToProps = (dispatch) => {

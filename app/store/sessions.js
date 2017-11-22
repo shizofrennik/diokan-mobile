@@ -204,6 +204,15 @@ export const setSelectedSession = (session) => {
   };
 }
 
+export const setShowControls = (bool) => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_SHOW_CONTROLS,
+      data: bool
+    })
+  };
+}
+
 export const toggleShowControls = () => {
   return (dispatch, getState) => {
     dispatch({

@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import Spinner from '../../components/Common/Spinner';
 import ListItem from './ListItem';
 import sessionStyle from '../../assets/styles/sessions';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class Sessions extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class Sessions extends Component {
         <TouchableHighlight
           style={sessionStyle.addBtn}
           onPress={Actions.createSession}>
-          <Text style={sessionStyle.addBtnText}>+</Text>
+          <Icon name="plus" size={24} color="white"/>
         </TouchableHighlight>
       </View>)
   }

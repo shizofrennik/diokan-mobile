@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {mainColor} from './variables';
+import {StyleSheet, Platform} from 'react-native';
+import {mainLightColor} from './variables';
 
 export default authStyles = StyleSheet.create({
   container: {
@@ -17,8 +17,11 @@ export default authStyles = StyleSheet.create({
     marginBottom: 50
   },
   input: {
-    width: "100%", 
-    marginBottom: 20, 
+    width: "100%",
+    paddingBottom: 5,
+    marginBottom: 20,
+    borderBottomColor: mainLightColor,
+    borderBottomWidth: 1,
     fontSize: 16, 
     color: "#fff"
   },

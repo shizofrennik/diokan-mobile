@@ -3,10 +3,11 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {View, Text, Image, TextInput, Button, TouchableHighlight} from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import logo from '../../assets/images/diokan-logo.png';
+import logo from '../../assets/images/daiokan-logo.png';
 import * as common from '../../utils/common';
 import authStyles from '../../assets/styles/auth';
 import {auth} from '../../containers/NavigationRouter';
+import {mainColor} from '../../assets/styles/variables';
 
 class Login extends Component {
   constructor(props) {
@@ -45,14 +46,14 @@ class Login extends Component {
           <TextInput
             style={authStyles.input}
             placeholderTextColor="white"
-            underlineColorAndroid="#5eb5eb"
+            underlineColorAndroid={mainColor}
             placeholder="Email Address"
             onChangeText={(email) => this.setState({email})}
             value={this.state.text}/>
           <TextInput
             style={authStyles.input}
             placeholderTextColor="white"
-            underlineColorAndroid="#5eb5eb"
+            underlineColorAndroid={mainColor}
             placeholder="Password"
             secureTextEntry
             onChangeText={(password) => this.setState({password})}

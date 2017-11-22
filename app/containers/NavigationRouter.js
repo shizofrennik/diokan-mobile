@@ -1,12 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Scene, Router, Tabs, Lightbox, Stack, Drawer } from 'react-native-router-flux';
 import { View, Text } from 'react-native';
 import Login from '../components/Auth/Login';
 import Edit from '../components/Sessions/Edit';
 import Show from '../components/Sessions/Show';
-import ShowControls from '../components/Nav/ShowControls';
 import Create from '../components/Sessions/Create';
+import ShowNavBar from '../components/Nav/ShowNavBar';
 import Sessions from '../components/Sessions/Sessions';
 import DrawerList from '../components/Nav/DrawerList';
 import InitialScreen from '../components/Nav/InitialScreen';
@@ -52,7 +51,8 @@ const NavigationRouter = () => {
           <Scene key="sessions" initial component={Sessions} title="Sessions" onEnter={requireAuth}/>
           <Scene key="edit" component={Edit} title="Edit Session" onEnter={requireAuth}/>
           <Scene key="createSession" component={Create} title="Add Session" onEnter={requireAuth}/>
-          <Scene key="show" renderRightButton={() => <ShowControls />} component={Show} onEnter={requireAuth}/>
+          {/*<Scene key="show" renderRightButton={() => <ShowControls />} navBar={} component={Show} onEnter={requireAuth}/>*/}
+          <Scene key="show" navBar={ShowNavBar} component={Show} onEnter={requireAuth}/>
         </Scene>
         {/*<Scene key="login" title="Log in" initial component={Login}/>
         <Scene key="drawer" component={DrawerList}>
