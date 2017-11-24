@@ -8,11 +8,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 class Show extends Component {
-  constructor() {
-    super();
-
-  }
-
   render() {
     let {session} = this.props;
     return (

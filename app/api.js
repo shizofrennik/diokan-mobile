@@ -90,9 +90,23 @@ export function fetchSession() {
 
 }
 
-export function fetchDestroyPhotoSession() {
+export function fetchDestroyPhotoSession(id) {
+  const body = {
+    query: 'mutation DestroyPhotoSession($photo_session:DestroyPhotoSessionInput!) { destroy_photo_session (input:$photo_session) { id } }',
+    variables: { photo_session: {id} }
+  }
 
+  return getAuthHeaders().then(headers => {
+    return fetch(API_URL, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body)
+    }).then(resp => {
+      return resp.json();
+    });
+  })
 }
+
 export function fetchDestroyPhotoFromSession() {
 
 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, Image, TouchableHighlight, Platform } from 'react-native';
+import { View, Text, Image, TouchableHighlight, Platform, Alert } from 'react-native';
 import sessionStyle from '../../assets/styles/sessions';
 import appStyles from '../../assets/styles/app';
 import {mainColor, touchColor} from '../../assets/styles/variables';
@@ -8,12 +8,33 @@ import {bindActionCreators} from 'redux';
 import {getClientName} from '../../utils/common';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {toggleShowControls, setShowControls} from '../../store/sessions';
+import {toggleShowControls, setShowControls, destroySession} from '../../store/sessions';
 import backIcon from '../../assets/images/icn-back-android.png';
 
 class ShowNavBar extends Component {
+  constructor() {
+    super();
+
+    this.deleteModal = this.deleteModal.bind(this);
+  }
+
+  deleteModal() {
+    let {session, destroySession} = this.props;
+    Alert.alert(
+      'Delete Session',
+      'Are you sure you want to delete this session?',
+      [
+        {text: 'Cancel', onPress: () => {}, style: "cancel"},
+        {text: 'Delete', onPress: () => {
+          destroySession(session.id).then(Actions.sessions);
+        }}
+      ],
+      { cancelable: false }
+    )
+  }
+
   getMenu() {
-    let { setShowControls } = this.props;
+    let { setShowControls, session } = this.props;
     return (
       <View style={appStyles.customHeaderDropDown}>
         <TouchableHighlight
@@ -25,15 +46,16 @@ class ShowNavBar extends Component {
           style={{padding: 15}}>
           <Text style={{fontSize: 16, color: "black"}}>Edit Session</Text>
         </TouchableHighlight>
+        {session.status === "created" &&
         <TouchableHighlight
           underlayColor={touchColor}
           onPress={() => {
             setShowControls(false);
-            Actions.createSession()
+            this.deleteModal();
           }}
           style={{padding: 15}}>
           <Text style={{fontSize: 16, color: "black"}}>Delete Session</Text>
-        </TouchableHighlight>
+        </TouchableHighlight>}
       </View>
     )
   }
@@ -79,7 +101,8 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     toggleShowControls,
-    setShowControls
+    setShowControls,
+    destroySession
   }, dispatch);
 }
 
