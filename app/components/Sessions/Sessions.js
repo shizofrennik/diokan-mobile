@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, TouchableHighlight } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import {getCurrentUser} from '../../store/user'
 import {getSessions} from '../../store/sessions'
@@ -37,11 +37,12 @@ class Sessions extends Component {
     //   </View>)
       (<View>
         <FlatList data={sessions} keyExtractor={item => item.id} renderItem={({item}) => <ListItem onPress={Actions.edit} session={item}/>}/>
-        <TouchableHighlight
+        <TouchableOpacity
+          activeOpacity={0.7}
           style={sessionStyle.addBtn}
           onPress={Actions.createSession}>
           <Icon name="plus" size={24} color="white"/>
-        </TouchableHighlight>
+        </TouchableOpacity>
       </View>)
   }
 }

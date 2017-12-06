@@ -5,10 +5,12 @@ import Login from '../components/Auth/Login';
 import Edit from '../components/Sessions/Edit';
 import Show from '../components/Sessions/Show';
 import Create from '../components/Sessions/Create';
+import AddClient from '../components/Sessions/AddClient';
 import ShowNavBar from '../components/Nav/ShowNavBar';
 import Sessions from '../components/Sessions/Sessions';
 import DrawerList from '../components/Nav/DrawerList';
 import InitialScreen from '../components/Nav/InitialScreen';
+import SubmitFormButton from '../components/Nav/SubmitFormButton';
 import { Actions } from 'react-native-router-flux';
 import AuthService from '../utils/AuthService';
 import styles from '../assets/styles/app';
@@ -50,7 +52,8 @@ const NavigationRouter = () => {
         <Scene key="app" onEnter={requireAuth}>
           <Scene key="sessions" initial component={Sessions} title="Sessions" onEnter={requireAuth}/>
           <Scene key="edit" component={Edit} title="Edit Session" onEnter={requireAuth}/>
-          <Scene key="createSession" component={Create} title="Add Session" onEnter={requireAuth}/>
+          <Scene key="createSession" component={Create} title="Add Session" renderRightButton={() => <SubmitFormButton formName="sessionForm" />} onEnter={requireAuth}/>
+          <Scene key="addClient" component={AddClient} title="Add Client" renderRightButton={() => <SubmitFormButton formName="addClientForm" />} onEnter={requireAuth}/>
           {/*<Scene key="show" renderRightButton={() => <ShowControls />} navBar={} component={Show} onEnter={requireAuth}/>*/}
           <Scene key="show" navBar={ShowNavBar} component={Show} onEnter={requireAuth}/>
         </Scene>

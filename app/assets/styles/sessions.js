@@ -78,5 +78,22 @@ export default sessionStyles = StyleSheet.create({
   showListTextPrimary: {
     fontSize: 16,
     color: mainColor
+  },
+  container: {
+    flex: 1, 
+    backgroundColor: "white", 
+    padding: 16
+  },
+  containerAdd: {
+    flex: 1,
+    backgroundColor: "white",
+    padding: 16,
+    paddingBottom: 0
+  },
+  button: {
+    backgroundColor: mainColor,
+    alignItems: "center",
+    paddingVertical: 12,
+    margin: 16
   }
 })
