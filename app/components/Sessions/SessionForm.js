@@ -25,7 +25,8 @@ class SessionForm extends Component {
   }
 
   render() {
-    let {values} = this.props.form;
+    let values;
+    if(this.props.form) values = this.props.form.values;
     return (
       <ScrollView style={{backgroundColor: "white"}}>
         <View style={sessionStyle.containerAdd}>
@@ -66,7 +67,6 @@ class SessionForm extends Component {
               customStyles={inputsStyle.inputLastChild}
               label="Location (optional)"
               component={InputField}
-              validate={[validation.number]}
             />
           </View>
         </View>

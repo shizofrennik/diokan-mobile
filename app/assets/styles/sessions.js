@@ -34,10 +34,10 @@ export default sessionStyles = StyleSheet.create({
     backgroundColor: "white"
   },
   showHeader: {
-    flex: 1,
     backgroundColor: mainColor,
     paddingTop: 15,
     paddingLeft: 70,
+    paddingRight: 20,
     paddingBottom: 40
   },
   showHeaderTitle: {
@@ -49,7 +49,6 @@ export default sessionStyles = StyleSheet.create({
     color: "white"
   },
   showBody: {
-    flex: 3,
     paddingTop: 25
   },
   showListElement: {

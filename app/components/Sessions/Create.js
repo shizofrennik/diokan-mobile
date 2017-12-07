@@ -29,9 +29,9 @@ class Create extends Component {
       } else {
         this.props.createSession(value).then(res => {
           console.log("Session was successfully created!"); //toastr success message
-          this.props.destroy('sessionForm');
           Actions.replace('sessions');
-        }).catch((err) => console.log('err', err));
+          this.props.destroy('sessionForm');
+        }).catch(console.log);
       }
     }).catch(() => toastr.error("You can't send photo session to another photographer!"));
   }
