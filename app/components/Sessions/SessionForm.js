@@ -9,6 +9,7 @@ import UsersField from '../../components/Common/UsersField';
 import { Actions } from 'react-native-router-flux';
 import sessionStyle from '../../assets/styles/sessions';
 import inputsStyle from '../../assets/styles/inputs';
+import { formValidation as validation } from '../../utils/common';
 
 class SessionForm extends Component {
 
@@ -32,6 +33,7 @@ class SessionForm extends Component {
             name="name"
             label="Session name"
             component={InputField}
+            validate={[validation.alphaNumeric]}
           />
           <View>
             <Field
@@ -47,6 +49,7 @@ class SessionForm extends Component {
               label="Photo Start #"
               keyboardType="numeric"
               component={InputField}
+              validate={[validation.number]}
             />
             <Field
               width="47%"
@@ -54,6 +57,7 @@ class SessionForm extends Component {
               label="Photo End #"
               keyboardType="numeric"
               component={InputField}
+              validate={[validation.number]}
             />
           </View>
           <View>
@@ -62,6 +66,7 @@ class SessionForm extends Component {
               customStyles={inputsStyle.inputLastChild}
               label="Location (optional)"
               component={InputField}
+              validate={[validation.number]}
             />
           </View>
         </View>

@@ -80,7 +80,7 @@ export const updateSession = (formData) => {
 export const validateEmail = (emails) => {
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-      fetchValidateEmails(emails).then(data => {
+      fetchValidateEmails('validate emails', emails).then(data => {
         let emailsArr = data.data.check_emails_for_session.data;
         let invalidEmails = emailsArr.filter(email => !email.valid);
         resolve(invalidEmails.length === 0);

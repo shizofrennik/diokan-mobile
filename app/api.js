@@ -74,8 +74,21 @@ export function fetchSessions(filters = {order: 0, search_string: ''}, paginatio
   })
 }
 
-export function fetchCreateSession() {
-  
+export function fetchCreateSession(user_fields) {
+  const body = {
+    query: 'mutation CreatePhotoSession($photo_session:CreatePhotoSessionInput!) { create_photo_session (input:$photo_session) { id } }',
+    variables: { photo_session: user_fields }
+  }
+
+  return getAuthHeaders().then(headers => {
+    return fetch(API_URL, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body)
+    }).then(resp => {
+      return resp.json();
+    });
+  })
 }
 
 export function fetchUpdateSession() {
@@ -111,8 +124,21 @@ export function fetchDestroyPhotoFromSession() {
 
 }
 
-export function fetchValidateEmails() {
+export function fetchValidateEmails(emails) {
+  const body = {
+    query: 'query Emails($emails:[String]!) { check_emails_for_session(emails:$emails) { data { email valid } } }',
+    variables: { emails }
+  }
 
+  return getAuthHeaders().then(headers => {
+    return fetch(API_URL, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body)
+    }).then(resp => {
+      return resp.json();
+    });
+  })
 }
 
 export function fetchDeleteUserFromPhotoSession() {
