@@ -6,3 +6,4 @@ export const lightGrey = "#E8EDEF";
 export const greyBackground = "#e9eef1";
 export const touchColor = "#cacaca";
 export const successColor = "#27c893";
+export const errorDarkColor = "#D43527";
