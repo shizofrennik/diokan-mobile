@@ -29,8 +29,12 @@ class Sessions extends Component {
   render() {
     let {sessions} = this.props;
     return this.state.fetchingData ? <Spinner /> :
-      (<View>
-        <FlatList data={sessions} keyExtractor={item => item.id} renderItem={({item}) => <ListItem onPress={Actions.edit} session={item}/>}/>
+      (<View style={{flex: 1, backgroundColor: "white"}}>
+        {!sessions.length
+        ? (<View style={{flex: 1, backgroundColor: "white", justifyContent: "center", alignItems: "center"}}>
+            <Text style={{fontSize: 24}}>Sorry, You have no sessions!</Text>
+          </View>)
+        : (<FlatList data={sessions} keyExtractor={item => item.id} renderItem={({item}) => <ListItem onPress={Actions.edit} session={item}/>}/>)}
         <TouchableOpacity
           activeOpacity={0.7}
           style={sessionStyle.addBtn}

@@ -53,18 +53,17 @@ class NavigationRouter extends React.Component {
     }).catch(console.log);
   }
 
-  //@todo check flash messages
   render() {
     return (
       <Router auth={auth} flash={this.props.flash}>
         <Scene key="root" hideNavBar navigationBarStyle={styles.header} navBarButtonColor="white" titleStyle={styles.headerTitle}>
           <Scene key="initial" initial component={InitialScreen} onEnter={initialRedirect}/>
           <Scene key="login" title="Log in" component={Login} onEnter={isLoggedIn}/>
-          <Scene key="app" onEnter={requireAuth} flash={this.props.flash}>
+          <Scene key="app" onEnter={requireAuth}>
             <Scene key="sessions" initial component={Sessions} title="Sessions" onEnter={requireAuth}/>
             <Scene key="edit" component={Edit} title="Edit Session" onEnter={requireAuth}/>
-            <Scene key="createSession" component={Create} title="Add Session" flash={this.props.flash} renderRightButton={() => <SubmitFormButton formName="sessionForm" />} onEnter={requireAuth}/>
-            <Scene key="addClient" component={AddClient} title="Add Client" flash={this.props.flash} renderRightButton={() => <SubmitFormButton formName="addClientForm" />} onEnter={requireAuth}/>
+            <Scene key="createSession" component={Create} title="Add Session" renderRightButton={() => <SubmitFormButton formName="sessionForm" />} onEnter={requireAuth}/>
+            <Scene key="addClient" component={AddClient} title="Add Client" renderRightButton={() => <SubmitFormButton formName="addClientForm" />} onEnter={requireAuth}/>
             <Scene key="show" navBar={ShowNavBar} component={Show} onEnter={requireAuth}/>
           </Scene>
         </Scene>
