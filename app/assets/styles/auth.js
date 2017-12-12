@@ -8,12 +8,14 @@ export default authStyles = StyleSheet.create({
     justifyContent: "center"
   },
   centerWrapper: {
+    justifyContent: "center",
     alignItems: "center", 
-    marginHorizontal: 40
+    marginHorizontal: 40,
+    top: -30
   },
   logo: {
     width: "80%", 
-    resizeMode: "contain", 
+    resizeMode: "contain",
     marginBottom: 50
   },
   input: {
@@ -25,11 +27,21 @@ export default authStyles = StyleSheet.create({
     fontSize: 16, 
     color: "#fff"
   },
+  inputLast: {
+    width: "100%",
+    paddingBottom: 5,
+    marginBottom: 30,
+    borderBottomColor: mainLightColor,
+    borderBottomWidth: 1,
+    fontSize: 16,
+    color: "#fff"
+  },
   loginBtn: {
     width: "100%", 
     backgroundColor: "white", 
     padding: 15, 
-    borderRadius: 3
+    borderRadius: 3,
+    marginBottom: 15
   },
   loginBtnText: {
     color: "#12a3e1", 

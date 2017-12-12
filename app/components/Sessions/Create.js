@@ -1,21 +1,62 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView } from 'react-native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { destroy, clearFields } from 'redux-form';
+import { createSession, validateEmail } from '../../store/sessions';
+import SessionForm from '../../components/Sessions/SessionForm';
 import { Actions } from 'react-native-router-flux';
 
 class Create extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
+  handleSubmit(value) {
+    if(!value.users.length) {
+      this.props.flash.alertWithType('info', 'Info', "To create new session, please add a client!");
+      return
+    }
+
+    let userEmails = value.users.map(user => user.email),
+      uniqueEmails = userEmails.filter((value, index, self) => self.indexOf(value) === index);
+
+    this.props.validateEmail(uniqueEmails).then(isValid => {
+      if(!isValid || userEmails.length > uniqueEmails.length) {
+        let message = isValid ? "Only unique client emails are allowed!" : "You can't send photo session to another photographer!";
+        this.props.flash.alertWithType('error', 'Error', message);
+      } else {
+        this.props.createSession(value).then(res => {
+          if(res.create_photo_session && res.create_photo_session.id) {
+            this.props.flash.alertWithType('success', 'Success', "Session was successfully created!");
+            Actions.reset('app');
+            this.props.destroy('sessionForm');
+          }
+          // Actions.replace('sessions');
+        }).catch(console.log);
+      }
+    }).catch(() => {
+      this.props.flash.alertWithType('error', 'Error', "You can't send photo session to another photographer!");
+    });
   }
 
   render() {
     return (
-      <View style={{flex: 1, backgroundColor: "white", justifyContent: "center", alignItems: "center"}}>
-        <Text style={{fontSize: 22, marginBottom: 30, color: "black"}}>Create Session</Text>
-        <Text onPress={this.props.auth.logout}>Logout</Text>
-      </View>
+      <ScrollView style={{backgroundColor: "white"}}>
+        <SessionForm onSubmit={this.handleSubmit} initialValues={{users: []}}/>
+      </ScrollView>
     )
   }
 }
 
-export default Create;
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    destroy,
+    clearFields,
+    createSession,
+    validateEmail
+  }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(Create);

@@ -22,7 +22,7 @@ export default appStyles = StyleSheet.create({
   },
   customHeaderBody: {
     backgroundColor: mainColor, 
-    height: 180, 
+    minHeight: 180,
     flexDirection: "column"
   },
   customHeaderDropDown: {

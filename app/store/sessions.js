@@ -14,6 +14,7 @@ export const GET_SESSIONS = 'GET_SESSIONS';
 export const SET_SELECTED_SESSION = 'SET_SELECTED_SESSION';
 export const REMOVE_SELECTED_SESSION = 'REMOVE_SELECTED_SESSION';
 export const SET_FILTERS = 'SET_FILTERS';
+export const FETCHING_CREATE_SESSION = 'FETCHING_CREATE_SESSION';
 export const TOGGLE_SHOW_CONTROLS = 'TOGGLE_SHOW_CONTROLS';
 export const SET_SHOW_CONTROLS = 'SET_SHOW_CONTROLS';
 export const SET_SESSIONS_PAGINATION = 'SET_SESSIONS_PAGINATION';
@@ -26,6 +27,7 @@ const initialState = {
   sessions: [],
   selectedSession: {},
   fetchingSessions: false,
+  fetchingCreateSession: false,
   pagination: paginationDefault,
   total_count: 0,
   filters: {order: 0, search_string: ''},
@@ -35,11 +37,26 @@ const initialState = {
 
 export const createSession = (formData) => {
   return (dispatch, getState) => {
+    let state = getState();
     return new Promise((resolve, reject) => {
+      if(state.sessions.fetchingCreateSession) {
+        return resolve();
+      }
+      
+      dispatch({
+        type: FETCHING_CREATE_SESSION,
+        data: true
+      });
+      
       return fetchCreateSession(formData).then(res => {
         dispatch({
           type: CREATE_SESSION,
           data: res.data
+        });
+
+        dispatch({
+          type: FETCHING_CREATE_SESSION,
+          data: false
         });
         resolve(res.data);
       }).catch((err) => reject())
@@ -310,6 +327,12 @@ const ACTION_HANDLERS = {
     return ({
       ...state,
       fetchingSessions: action.data
+    })
+  },
+  [FETCHING_CREATE_SESSION]: (state, action) => {
+    return ({
+      ...state,
+      fetchingCreateSession: action.data
     })
   },
   [TOGGLE_SHOW_CONTROLS]: (state, action) => {

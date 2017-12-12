@@ -2,6 +2,7 @@ import { fetchCurrentUser, fetchUpdatePhotographer } from '../api';
 export const GET_CURRENT_USER = 'GET_CURRENT_USER';
 export const FETCHING_CURRENT_USER = 'FETCHING_CURRENT_USER';
 export const UPDATE_CURRENT_USER = 'UPDATE_CURRENT_USER';
+import {auth} from '../containers/NavigationRouter';
 
 const initialState = {
   currentUser: {},
@@ -22,6 +23,10 @@ export const getCurrentUser = () => {
       });
 
       return fetchCurrentUser().then(res => {
+        if(!res.data) {
+          auth.logout();
+        }
+
         dispatch({
           type: GET_CURRENT_USER,
           data: res.data.current_user
