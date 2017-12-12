@@ -27,20 +27,14 @@ class Sessions extends Component {
   }
 
   render() {
-    let {currentUser, sessions} = this.props;
+    let {sessions} = this.props;
     return this.state.fetchingData ? <Spinner /> :
-    // (<View>
-    //     <Text onPress={Actions.edit}>Sessions</Text>
-    //     <Text>{currentUser.name}</Text>
-    //     <Text>{currentUser.email}</Text>
-    //     <Text onPress={this.props.auth.logout}>Logout</Text>
-    //   </View>)
       (<View>
         <FlatList data={sessions} keyExtractor={item => item.id} renderItem={({item}) => <ListItem onPress={Actions.edit} session={item}/>}/>
         <TouchableOpacity
           activeOpacity={0.7}
           style={sessionStyle.addBtn}
-          onPress={Actions.createSession}>
+          onPress={() => Actions.jump('createSession', {flash: this.props.flash})}>
           <Icon name="plus" size={24} color="white"/>
         </TouchableOpacity>
       </View>)

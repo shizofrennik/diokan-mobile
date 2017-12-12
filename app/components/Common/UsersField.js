@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import inputsStyle from '../../assets/styles/inputs';
-import {secondaryTextColor, greyBackground} from '../../assets/styles/variables';
+import {errorDarkColor} from '../../assets/styles/variables';
 import Swipeable from 'react-native-swipeable';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -24,8 +24,8 @@ const UsersField = ({deleteUser, fields, meta: {error}}) => {
       <TouchableOpacity
         activeOpacity={0.7}
         onPress={() => handleDelete(index)}
-        style={{backgroundColor: greyBackground, flex: 1, justifyContent: "center", alignItems: "flex-start", padding: 25}}>
-        <Icon name="trash" size={22} color={secondaryTextColor} />
+        style={{backgroundColor: errorDarkColor, flex: 1, justifyContent: "center", alignItems: "flex-start", padding: 25}}>
+        <Icon name="trash" size={22} color="white" />
       </TouchableOpacity>
     )
   }
@@ -33,9 +33,9 @@ const UsersField = ({deleteUser, fields, meta: {error}}) => {
   let getFields = () => {
     return fields.map((contact, index) => {
       return (
-        <Swipeable key={fields.get(index).email} rightButtons={[getDeleteButton(index)]}>
+        <Swipeable key={fields.get(index).email+index} rightButtons={[getDeleteButton(index)]}>
           <View style={inputsStyle.userField}>
-            <Text style={inputsStyle.textField}>{fields.get(index).first_name}</Text>
+            <Text style={inputsStyle.textField}>{fields.get(index).first_name ? fields.get(index).first_name : "Client"}</Text>
             <Text style={inputsStyle.secondaryFont}>{fields.get(index).email}</Text>
           </View>
         </Swipeable>

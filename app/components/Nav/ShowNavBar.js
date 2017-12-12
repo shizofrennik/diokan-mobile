@@ -12,8 +12,8 @@ import {toggleShowControls, setShowControls, destroySession} from '../../store/s
 import backIcon from '../../assets/images/icn-back-android.png';
 
 class ShowNavBar extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.deleteModal = this.deleteModal.bind(this);
   }
@@ -26,7 +26,10 @@ class ShowNavBar extends Component {
       [
         {text: 'Cancel', onPress: () => {}, style: "cancel"},
         {text: 'Delete', onPress: () => {
-          destroySession(session.id).then(Actions.sessions);
+          destroySession(session.id).then(() => {
+            this.props.flash.alertWithType('success', 'Success', "Session was successfully deleted!");
+            Actions.reset('app')
+          });
         }}
       ],
       { cancelable: false }
@@ -62,7 +65,6 @@ class ShowNavBar extends Component {
 
   render() {
     let {session, showMenu, toggleShowControls, selected} = this.props;
-
     return (
       <View style={appStyles.customHeaderBody}>
         <View style={appStyles.customHeader}>

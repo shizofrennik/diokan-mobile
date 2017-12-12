@@ -8,32 +8,37 @@ import SessionForm from '../../components/Sessions/SessionForm';
 import { Actions } from 'react-native-router-flux';
 
 class Create extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(value) {
-    // console.log('values from container', value);
-    // this.props.destroy('sessionForm');
-    // Actions.replace('sessions');
+    if(!value.users.length) {
+      this.props.flash.alertWithType('info', 'Info', "To create new session, please add a client!");
+      return
+    }
 
     let userEmails = value.users.map(user => user.email),
       uniqueEmails = userEmails.filter((value, index, self) => self.indexOf(value) === index);
 
     this.props.validateEmail(uniqueEmails).then(isValid => {
-      console.log('after validation ', isValid);
       if(!isValid || userEmails.length > uniqueEmails.length) {
         let message = isValid ? "Only unique client emails are allowed!" : "You can't send photo session to another photographer!";
-        console.log(message); //toastr err message
+        this.props.flash.alertWithType('error', 'Error', message);
       } else {
         this.props.createSession(value).then(res => {
-          console.log("Session was successfully created!"); //toastr success message
-          Actions.replace('sessions');
-          this.props.destroy('sessionForm');
+          if(res.create_photo_session && res.create_photo_session.id) {
+            this.props.flash.alertWithType('success', 'Success', "Session was successfully created!");
+            Actions.reset('app');
+            this.props.destroy('sessionForm');
+          }
+          // Actions.replace('sessions');
         }).catch(console.log);
       }
-    }).catch(() => toastr.error("You can't send photo session to another photographer!"));
+    }).catch(() => {
+      this.props.flash.alertWithType('error', 'Error', "You can't send photo session to another photographer!");
+    });
   }
 
   render() {

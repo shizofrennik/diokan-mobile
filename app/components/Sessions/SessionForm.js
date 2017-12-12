@@ -34,7 +34,7 @@ class SessionForm extends Component {
             name="name"
             label="Session name"
             component={InputField}
-            validate={[validation.alphaNumeric]}
+            validate={[validation.alphaNumeric, validation.required]}
           />
           <View>
             <Field

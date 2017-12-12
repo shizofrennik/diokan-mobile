@@ -141,6 +141,7 @@ class Login extends Component {
             style={authStyles.input}
             placeholderTextColor="white"
             underlineColorAndroid={mainColor}
+            keyboardType="email-address"
             placeholder="Email Address"
             onChangeText={(email) => this.setState({email, authError: false, error: ''})}
             value={this.state.text}/>

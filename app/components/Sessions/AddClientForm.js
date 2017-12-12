@@ -28,6 +28,7 @@ class AddClientForm extends Component {
             <Field
               name="phone"
               label="Phone Number"
+              keyboardType="numeric"
               component={InputField}
             />
           </View>
@@ -35,6 +36,7 @@ class AddClientForm extends Component {
             <Field
               name="email"
               label="Email"
+              keyboardType="email-address"
               component={InputField}
               validate={[validation.email]}
             />
