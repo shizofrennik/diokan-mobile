@@ -13,6 +13,10 @@ class Create extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentWillUnmount() {
+    this.props.destroy('sessionForm');
+  }
+  
   handleSubmit(value) {
     if(!value.users.length) {
       this.props.flash.alertWithType('info', 'Info', "To create new session, please add a client!");

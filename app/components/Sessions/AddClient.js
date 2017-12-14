@@ -14,7 +14,7 @@ class AddClient extends Component {
 
   handleSubmit(value) {
     this.props.arrayPush('sessionForm', 'users', value);
-    Actions.replace('createSession');
+    Actions.popTo('createSession');
   }
 
   render() {

@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import {mainTextColor, secondaryTextColor, lightGrey, mainColor, successColor} from './variables';
 
 export default sessionStyles = StyleSheet.create({
@@ -38,8 +38,8 @@ export default sessionStyles = StyleSheet.create({
     paddingTop: 15,
     paddingLeft: 70,
     paddingRight: 20,
-    paddingBottom: 40
-  },
+    paddingBottom: (Platform.OS === 'ios') ? 40 : 50
+},
   showHeaderTitle: {
     fontSize: 34,
     color: "white"

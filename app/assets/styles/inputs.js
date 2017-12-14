@@ -28,6 +28,7 @@ export default authStyles = StyleSheet.create({
   dateInput: {
     width: "100%",
     paddingBottom: 5,
+    paddingLeft: (Platform.OS === 'ios') ? undefined : 3,
     marginBottom: 20,
     borderBottomColor: lightGrey,
     borderBottomWidth: 1
