@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import { StyleSheet, Text, View, ViewPropTypes, TouchableOpacity } from 'react-native';
 import {auth} from '../../containers/NavigationRouter';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -8,14 +10,15 @@ import { Actions } from 'react-native-router-flux';
 
 class DrawerList extends Component {
   render() {
+    let {user} = this.props;
     return (
       <View style={{flex: 1, flexDirection: "column"}}>
         <View style={{flex: 1, backgroundColor: mainTextColor, padding: 16, paddingTop: 25}}>
           <View style={{paddingVertical: 16}}>
             <Icon name="user-circle-o" size={50} color={mainColor}/>
           </View>
-          <Text style={{color: "white", fontSize: 14, fontWeight: "bold"}}>Trisha Hensley</Text>
-          <Text style={{color: "white", fontSize: 14}}>trisha.hensley@company.com</Text>
+          <Text style={{color: "white", fontSize: 14, fontWeight: "bold"}}>{user.name}</Text>
+          <Text style={{color: "white", fontSize: 14}}>{user.email}</Text>
         </View>
         <View style={{flex: 4}}>
           <TouchableOpacity activeOpacity={0.7} style={sessionStyle.showListElement} onPress={Actions.sessions}>
@@ -40,4 +43,14 @@ class DrawerList extends Component {
   }
 }
 
-export default DrawerList;
+const mapStateToProps = (state, props) => {
+  return ({
+    user: state.user.currentUser,
+  })
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerList)
