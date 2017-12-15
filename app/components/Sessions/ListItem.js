@@ -17,7 +17,7 @@ class ListItem extends Component {
         underlayColor={touchColor} 
         onPress={() => {
           setSelectedSession(session);
-          Actions.push('show', {session});
+          Actions.push('show');
         }
       }>
         <View style={sessionStyle.listElement}>

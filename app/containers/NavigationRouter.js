@@ -62,7 +62,7 @@ class NavigationRouter extends React.Component {
           <Scene key="login" title="Log in" component={Login} onEnter={isLoggedIn}/>
           <Scene key="app" onEnter={requireAuth}>
             <Scene key="sessions" initial component={Sessions} title="Sessions" onEnter={requireAuth}/>
-            <Scene key="edit" component={Edit} title="Edit Session" onEnter={requireAuth}/>
+            <Scene key="edit" component={Edit} title="Edit Session" renderRightButton={() => <SubmitFormButton formName="sessionForm" />} onEnter={requireAuth}/>
             <Scene key="createSession" component={Create} title="Add Session" renderRightButton={() => <SubmitFormButton formName="sessionForm" />} onEnter={requireAuth}/>
             <Scene key="addClient" component={AddClient} title="Add Client" renderRightButton={() => <SubmitFormButton formName="addClientForm" />} onEnter={requireAuth}/>
             <Scene key="showClient" title="Client" component={ShowClient} onEnter={requireAuth}/>

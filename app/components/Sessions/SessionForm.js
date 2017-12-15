@@ -10,6 +10,7 @@ import { Actions } from 'react-native-router-flux';
 import sessionStyle from '../../assets/styles/sessions';
 import inputsStyle from '../../assets/styles/inputs';
 import { formValidation as validation } from '../../utils/common';
+import { deleteUser } from '../../store/sessions';
 
 class SessionForm extends Component {
 
@@ -17,7 +18,7 @@ class SessionForm extends Component {
     return (
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={Actions.addClient}
+        onPress={() => Actions.addClient({indexPage: this.props.indexPage})}
         style={sessionStyle.button}>
         <Text style={{color: "white"}}>Add Clients</Text>
       </TouchableOpacity>
@@ -75,7 +76,7 @@ class SessionForm extends Component {
         <View style={{backgroundColor: "#e9eef1", marginTop: 10, paddingVertical: 10, paddingHorizontal: 16}}>
           <Text style={{color: "black"}}>Contacts</Text>
         </View>}
-        {!!(values && values.users.length) && <FieldArray name="users" component={UsersField}/>}
+        {!!(values && values.users.length) && <FieldArray name="users" deleteUser={this.props.deleteUser} component={UsersField}/>}
         {!!(values && values.users.length) && this.renderButton()}
       </ScrollView>
     )
@@ -90,7 +91,9 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators({
+    deleteUser
+  }, dispatch);
 };
 
 SessionForm = connect(mapStateToProps, mapDispatchToProps)(SessionForm);

@@ -16,6 +16,7 @@ class DateField extends Component {
   render() {
     let { label, input: { onChange, value }} = this.props;
     let {showPicker} = this.state;
+    if(isNaN(value)) value = moment(value).format('x');
     
     return (
       <View>
@@ -28,8 +29,7 @@ class DateField extends Component {
         <DateTimePicker
           isVisible={showPicker}
           onConfirm={(date) => {
-            let timestamp = moment(date).format('x');
-            onChange(timestamp.toString());
+            onChange(moment(date).format());
             this.setState({ showPicker: false});
           }}
           onCancel={() => this.setState({ showPicker: false})}
