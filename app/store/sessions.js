@@ -68,7 +68,7 @@ export const updateSession = (formData) => {
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
       return fetchUpdateSession(formData).then(res => {
-        return fetchSession(res.data.data.update_photo_session.id).then(res => {
+        return fetchSession(res.data.update_photo_session.id).then(res => {
           let session = res.data.photographer_photo_session;
           let session_photos = session.session_photos.map(photo => ({
             id: photo.id,
@@ -86,10 +86,11 @@ export const updateSession = (formData) => {
             type: GET_SESSION,
             data: {photographer_photo_session: Object.assign({}, session, {session_photos})}
           });
-
+          
+          getSessions()(dispatch, getState);
           resolve(res);
         });
-      }).catch((err) => reject())
+      }).catch((err) => reject(err))
     });
   }
 }

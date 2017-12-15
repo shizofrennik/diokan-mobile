@@ -37,14 +37,14 @@ class ShowNavBar extends Component {
   }
 
   getMenu() {
-    let { setShowControls, session } = this.props;
+    let { setShowControls, session, flash } = this.props;
     return (
       <View style={appStyles.customHeaderDropDown}>
         <TouchableHighlight
           underlayColor={touchColor}
           onPress={() => {
             setShowControls(false);
-            Actions.edit()
+            Actions.edit({flash})
           }}
           style={{padding: 15}}>
           <Text style={{fontSize: 16, color: "black"}}>Edit Session</Text>
@@ -64,7 +64,7 @@ class ShowNavBar extends Component {
   }
 
   render() {
-    let {session, showMenu, toggleShowControls, selected} = this.props;
+    let {session, showMenu, toggleShowControls} = this.props;
     return (
       <View style={appStyles.customHeaderBody}>
         <View style={appStyles.customHeader}>
@@ -95,7 +95,7 @@ class ShowNavBar extends Component {
 
 const mapStateToProps = (state, props) => {
   return ({
-    selected: state.sessions.selectedSession,
+    session: state.sessions.selectedSession,
     showMenu: state.sessions.showControls
   })
 }

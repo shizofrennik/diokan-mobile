@@ -4,6 +4,8 @@ import inputsStyle from '../../assets/styles/inputs';
 import {errorDarkColor} from '../../assets/styles/variables';
 import Swipeable from 'react-native-swipeable';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Actions } from 'react-native-router-flux';
+import { getClientName } from '../../utils/common';
 
 const UsersField = ({deleteUser, fields, meta: {error}}) => {
   
@@ -34,10 +36,10 @@ const UsersField = ({deleteUser, fields, meta: {error}}) => {
     return fields.map((contact, index) => {
       return (
         <Swipeable key={fields.get(index).email+index} rightButtons={[getDeleteButton(index)]}>
-          <View style={inputsStyle.userField}>
-            <Text style={inputsStyle.textField}>{fields.get(index).first_name ? fields.get(index).first_name : "Client"}</Text>
+          <TouchableOpacity onPress={() => Actions.push('showClient', {user: fields.get(index)})} style={inputsStyle.userField}>
+            <Text style={inputsStyle.textField}>{getClientName(fields.get(index))}</Text>
             <Text style={inputsStyle.secondaryFont}>{fields.get(index).email}</Text>
-          </View>
+          </TouchableOpacity>
         </Swipeable>
       )
     })

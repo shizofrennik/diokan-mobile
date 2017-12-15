@@ -91,16 +91,42 @@ export function fetchCreateSession(user_fields) {
   })
 }
 
-export function fetchUpdateSession() {
+export function fetchUpdateSession(user_fields) {
+  const body = {
+    query: 'mutation UpdatePhotoSession($photo_session:UpdatePhotoSessionInput!) { update_photo_session (input:$photo_session) { id } }',
+    variables: { photo_session: user_fields }
+  }
 
+  return getAuthHeaders().then(headers => {
+    return fetch(API_URL, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body)
+    }).then(resp => {
+      return resp.json();
+    });
+  })
 }
 
 export function fetchUpdateStatus() {
 
 }
 
-export function fetchSession() {
+export function fetchSession(id) {
+  const body = {
+    query: 'query Session($id:ID!) { photographer_photo_session (id:$id) { id name date photo_start photo_end location status session_photos { id name assigned_automatically file_url thumbnail_url mediumsize_url largesize_url smallsize_url } users { id first_name last_name email phone }  }}',
+    variables: { id }
+  }
 
+  return getAuthHeaders().then(headers => {
+    return fetch(API_URL, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body)
+    }).then(resp => {
+      return resp.json();
+    });
+  })
 }
 
 export function fetchDestroyPhotoSession(id) {
@@ -141,6 +167,19 @@ export function fetchValidateEmails(emails) {
   })
 }
 
-export function fetchDeleteUserFromPhotoSession() {
+export function fetchDeleteUserFromPhotoSession(session_id, user_id) {
+  const body = {
+    query: 'mutation DeleteUserFromPhotoSession($session_user:DeleteUserFromPhotoSessionInput!) { delete_user_from_photo_session (input:$session_user) { user_id } }',
+    variables: { session_user: {session_id, user_id} }
+  }
 
+  return getAuthHeaders().then(headers => {
+    return fetch(API_URL, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body)
+    }).then(resp => {
+      return resp.json();
+    });
+  })
 }

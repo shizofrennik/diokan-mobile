@@ -41,14 +41,14 @@ class Create extends Component {
         }).catch(console.log);
       }
     }).catch(() => {
-      this.props.flash.alertWithType('error', 'Error', "You can't send photo session to another photographer!");
+      this.props.flash.alertWithType('error', 'Error', "Oops something goes wrong!");
     });
   }
 
   render() {
     return (
       <ScrollView style={{backgroundColor: "white"}}>
-        <SessionForm onSubmit={this.handleSubmit} initialValues={{users: []}}/>
+        <SessionForm onSubmit={this.handleSubmit} indexPage="createSession" initialValues={{users: []}}/>
       </ScrollView>
     )
   }

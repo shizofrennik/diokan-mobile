@@ -60,7 +60,9 @@ class Show extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  return ({})
+  return ({
+    session: state.sessions.selectedSession
+  })
 }
 
 const mapDispatchToProps = (dispatch) => {
