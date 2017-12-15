@@ -49,7 +49,6 @@ class Edit extends Component {
     return (
       <ScrollView style={{backgroundColor: "white"}}>
         <SessionForm onSubmit={this.handleSubmit} indexPage="edit" initialValues={session}/>
-        {/*<Text onPress={this.props.auth.logout}>Logout</Text>*/}
       </ScrollView>
     )
   }

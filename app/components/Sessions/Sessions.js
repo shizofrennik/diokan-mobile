@@ -38,7 +38,7 @@ class Sessions extends Component {
         <TouchableOpacity
           activeOpacity={0.7}
           style={sessionStyle.addBtn}
-          onPress={() => Actions.jump('createSession', {flash: this.props.flash})}>
+          onPress={() => Actions.push('createSession', {flash: this.props.flash})}>
           <Icon name="plus" size={24} color="white"/>
         </TouchableOpacity>
       </View>)
