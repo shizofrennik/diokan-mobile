@@ -32,7 +32,7 @@ class Edit extends Component {
         flash.alertWithType('error', 'Error', message);
       } else {
         updateSession(value).then(res => {
-          if(res.data.photographer_photo_session && res.data.photographer_photo_session.id) {
+          if(res && res.data.photographer_photo_session && res.data.photographer_photo_session.id) {
             flash.alertWithType('success', 'Success', "Session was successfully updated!");
             Actions.popTo('show');
             this.props.destroy('sessionForm');

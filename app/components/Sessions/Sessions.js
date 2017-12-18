@@ -37,9 +37,10 @@ class Sessions extends Component {
         : (<SectionList
             sections={sortedSessions}
             keyExtractor={item => item.id}
-            renderSectionHeader={({section}) => <View style={{backgroundColor: "#e9eef1", paddingVertical: 10, paddingHorizontal: 16}}>
+            renderSectionHeader={({section}) => (section.data.length
+                                                ? (<View style={{backgroundColor: "#e9eef1", paddingVertical: 10, paddingHorizontal: 16}}>
                                                   <Text style={{color: "black", fontSize: 16}}>{section.title}</Text>
-                                                </View>}
+                                                </View>) : null)}
             renderItem={({item}) => <ListItem onPress={Actions.edit} session={item}/>}/>)}
         <TouchableOpacity
           activeOpacity={0.7}
