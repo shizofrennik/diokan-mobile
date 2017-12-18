@@ -8,7 +8,7 @@ import {bindActionCreators} from 'redux';
 import {getClientName} from '../../utils/common';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {toggleShowControls, setShowControls, destroySession} from '../../store/sessions';
+import {toggleShowControls, setShowControls, destroySession, getSessions} from '../../store/sessions';
 import backIcon from '../../assets/images/icn-back-android.png';
 
 class ShowNavBar extends Component {
@@ -19,7 +19,7 @@ class ShowNavBar extends Component {
   }
 
   deleteModal() {
-    let {session, destroySession} = this.props;
+    let {session, destroySession, getSessions, flash} = this.props;
     Alert.alert(
       'Delete Session',
       'Are you sure you want to delete this session?',
@@ -27,8 +27,12 @@ class ShowNavBar extends Component {
         {text: 'Cancel', onPress: () => {}, style: "cancel"},
         {text: 'Delete', onPress: () => {
           destroySession(session.id).then(() => {
-            this.props.flash.alertWithType('success', 'Success', "Session was successfully deleted!");
-            Actions.reset('app')
+            flash.alertWithType('success', 'Success', "Session was successfully deleted!");
+            return getSessions().then(() => {
+              Actions.popTo('sessions')
+            })
+          }).catch(err => {
+            flash.alertWithType('error', 'Error', "Oops something goes wrong!");
           });
         }}
       ],
@@ -104,7 +108,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     toggleShowControls,
     setShowControls,
-    destroySession
+    destroySession,
+    getSessions
   }, dispatch);
 }
 
