@@ -42,7 +42,8 @@ class ShowNavBar extends Component {
 
   getMenu() {
     let { setShowControls, session, flash } = this.props;
-    return (
+    return (session.status === "created")
+    ? (
       <View style={appStyles.customHeaderDropDown}>
         <TouchableHighlight
           underlayColor={touchColor}
@@ -53,7 +54,6 @@ class ShowNavBar extends Component {
           style={{padding: 15}}>
           <Text style={{fontSize: 16, color: "black"}}>Edit Session</Text>
         </TouchableHighlight>
-        {session.status === "created" &&
         <TouchableHighlight
           underlayColor={touchColor}
           onPress={() => {
@@ -62,9 +62,9 @@ class ShowNavBar extends Component {
           }}
           style={{padding: 15}}>
           <Text style={{fontSize: 16, color: "black"}}>Delete Session</Text>
-        </TouchableHighlight>}
+        </TouchableHighlight>
       </View>
-    )
+    ) : null
   }
 
   render() {
@@ -80,12 +80,13 @@ class ShowNavBar extends Component {
               <Icon style={{paddingTop: 10, paddingLeft: 0}} name="chevron-left" color="white" size={22} /> :
               <Image source={backIcon} style={{width: 24, height: 24}}/>}
           </TouchableHighlight>
+          {session.status === "created" &&
           <TouchableHighlight
             style={appStyles.customHeaderRightIcon}
             underlayColor={mainColor}
             onPress={toggleShowControls}>
             <Icon name="ellipsis-v" color="white" size={22} />
-          </TouchableHighlight>
+          </TouchableHighlight>}
         </View>
         <View style={sessionStyle.showHeader}>
           <Text style={sessionStyle.showHeaderTitle}>{getClientName(session.users[0], session.name)}</Text>
