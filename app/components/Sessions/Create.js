@@ -20,7 +20,7 @@ class Create extends Component {
   handleSubmit(value) {
     let {flash, getSessions, createSession, destroy, validateEmail} = this.props;
     if(!value.users.length) {
-      flash.alertWithType('info', 'Info', "To create new session, please add a client!");
+      if(flash) flash.alertWithType('info', 'Info', "To create new session, please add a client!");
       return
     }
 
@@ -30,11 +30,11 @@ class Create extends Component {
     validateEmail(uniqueEmails).then(isValid => {
       if(!isValid || userEmails.length > uniqueEmails.length) {
         let message = isValid ? "Only unique client emails are allowed!" : "You can't send photo session to another photographer!";
-        flash.alertWithType('error', 'Error', message);
+        if(flash) flash.alertWithType('error', 'Error', message);
       } else {
         return createSession(value).then(res => {
           if(res.create_photo_session && res.create_photo_session.id) {
-            flash.alertWithType('success', 'Success', "Session was successfully created!");
+            if(flash) flash.alertWithType('success', 'Success', "Session was successfully created!");
             getSessions().then(() => {
               Actions.popTo('sessions');
               destroy('sessionForm');
@@ -43,7 +43,7 @@ class Create extends Component {
         });
       }
     }).catch(() => {
-      flash.alertWithType('error', 'Error', "Oops something goes wrong!");
+      if(flash) flash.alertWithType('error', 'Error', "Oops something goes wrong!");
     });
   }
 
