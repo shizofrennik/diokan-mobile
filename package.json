@@ -1,48 +1,55 @@
 {
-	"name": "diokanmobile",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
-	},
-	"dependencies": {
-		"jwt-decode": "^2.2.0",
-		"native-base": "^2.3.2",
-		"react": "16.0.0-alpha.12",
-		"react-native": "0.48.4",
-		"react-native-auth0": "^1.0.3",
-		"react-native-router-flux": "^4.0.0-beta.21",
-		"react-native-storage": "^0.2.2",
-		"react-native-vector-icons": "^4.2.0",
-		"react-redux": "^5.0.4",
-		"reactotron-react-native": "^1.11.1",
-		"reactotron-redux": "^1.11.2",
-		"redux": "^3.6.0",
-		"redux-thunk": "^2.2.0"
-	},
-	"devDependencies": {
-		"babel-cli": "^6.24.1",
-		"babel-eslint": "^7.2.3",
-		"babel-jest": "21.0.2",
-		"babel-preset-flow": "^6.23.0",
-		"babel-preset-react-native": "4.0.0",
-		"eslint": "^3.19.0",
-		"eslint-config-airbnb": "^15.0.1",
-		"eslint-plugin-import": "^2.2.0",
-		"eslint-plugin-jsx-a11y": "^5.0.3",
-		"eslint-plugin-react": "^7.1.0",
-		"eslint-plugin-react-native": "^2.3.2",
-		"flow-bin": "^0.48.0",
-		"jest": "21.1.0",
-		"react-test-renderer": "16.0.0-alpha.12"
-	},
-	"jest": {
-		"preset": "react-native"
-	},
-	"rnpm": {
-		"assets": [
-			"./App/assets/fonts"
-		]
-	}
+  "name": "diokanmobile",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "jwt-decode": "^2.2.0",
+    "moment": "^2.19.2",
+    "native-base": "^2.3.2",
+    "react": "16.0.0-alpha.12",
+    "react-native": "0.48.4",
+    "react-native-auth0": "^1.0.3",
+    "react-native-dropdownalert": "^3.1.2",
+    "react-native-modal-datetime-picker": "^4.13.0",
+    "react-native-router-flux": "^4.0.0-beta.21",
+    "react-native-storage": "^0.2.2",
+    "react-native-swipeable": "^0.6.0",
+    "react-native-vector-icons": "^4.2.0",
+    "react-redux": "^5.0.4",
+    "reactotron-react-native": "^1.11.1",
+    "reactotron-redux": "^1.11.2",
+    "redux": "^3.6.0",
+    "redux-form": "^7.2.0",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "21.0.2",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react-native": "4.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^5.0.3",
+    "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-react-native": "^2.3.2",
+    "flow-bin": "^0.48.0",
+    "jest": "21.1.0",
+    "react-test-renderer": "16.0.0-alpha.12",
+    "reactotron-react-native": "^1.13.1",
+    "reactotron-redux": "^1.13.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./App/assets/fonts"
+    ]
+  }
 }
