@@ -1,6 +1,6 @@
 import React from 'react';
 import { Scene, Router, Tabs, Lightbox, Stack, Drawer } from 'react-native-router-flux';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import Login from '../components/Auth/Login';
 import Edit from '../components/Sessions/Edit';
 import Show from '../components/Sessions/Show';
@@ -16,6 +16,7 @@ import { Actions } from 'react-native-router-flux';
 import AuthService from '../utils/AuthService';
 import styles from '../assets/styles/app';
 import {isTokenExpired} from '../utils/jwtHelper';
+import menu from '../assets/images/icn-menu.png';
 
 export const requireAuth = () => {
   auth.loggedIn().then(logged => {
@@ -60,13 +61,15 @@ class NavigationRouter extends React.Component {
         <Scene key="root" hideNavBar navigationBarStyle={styles.header} navBarButtonColor="white" titleStyle={styles.headerTitle}>
           <Scene key="initial" initial component={InitialScreen} onEnter={initialRedirect}/>
           <Scene key="login" title="Log in" component={Login} onEnter={isLoggedIn}/>
-          <Scene key="app" onEnter={requireAuth}>
-            <Scene key="sessions" initial component={Sessions} title="Sessions" onEnter={requireAuth}/>
-            <Scene key="edit" component={Edit} title="Edit Session" renderRightButton={() => <SubmitFormButton formName="sessionForm" />} onEnter={requireAuth}/>
-            <Scene key="createSession" component={Create} title="Add Session" renderRightButton={() => <SubmitFormButton formName="sessionForm" />} onEnter={requireAuth}/>
-            <Scene key="addClient" component={AddClient} title="Add Client" renderRightButton={() => <SubmitFormButton formName="addClientForm" />} onEnter={requireAuth}/>
-            <Scene key="showClient" title="Client" component={ShowClient} onEnter={requireAuth}/>
-            <Scene key="show" navBar={ShowNavBar} component={Show} onEnter={requireAuth}/>
+          <Scene key="drawer" drawer contentComponent={DrawerList} drawerIcon={<Image style={{width: 24, height: 24}} source={menu}/>}>
+            <Scene key="app" onEnter={requireAuth}>
+              <Scene key="sessions" initial component={Sessions} title="Sessions" onEnter={requireAuth}/>
+              <Scene key="edit" hideDrawerButton component={Edit} title="Edit Session" renderRightButton={() => <SubmitFormButton formName="sessionForm" />} onEnter={requireAuth}/>
+              <Scene key="createSession" hideDrawerButton component={Create} title="Add Session" renderRightButton={() => <SubmitFormButton formName="sessionForm" />} onEnter={requireAuth}/>
+              <Scene key="addClient" hideDrawerButton component={AddClient} title="Add Client" renderRightButton={() => <SubmitFormButton formName="addClientForm" />} onEnter={requireAuth}/>
+              <Scene key="showClient" hideDrawerButton title="Client" component={ShowClient} onEnter={requireAuth}/>
+              <Scene key="show" hideDrawerButton navBar={ShowNavBar} component={Show} onEnter={requireAuth}/>
+            </Scene>
           </Scene>
         </Scene>
       </Router>

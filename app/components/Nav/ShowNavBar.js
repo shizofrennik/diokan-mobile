@@ -8,7 +8,7 @@ import {bindActionCreators} from 'redux';
 import {getClientName} from '../../utils/common';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {toggleShowControls, setShowControls, destroySession} from '../../store/sessions';
+import {toggleShowControls, setShowControls, destroySession, getSessions} from '../../store/sessions';
 import backIcon from '../../assets/images/icn-back-android.png';
 
 class ShowNavBar extends Component {
@@ -19,7 +19,7 @@ class ShowNavBar extends Component {
   }
 
   deleteModal() {
-    let {session, destroySession} = this.props;
+    let {session, destroySession, getSessions, flash} = this.props;
     Alert.alert(
       'Delete Session',
       'Are you sure you want to delete this session?',
@@ -27,8 +27,12 @@ class ShowNavBar extends Component {
         {text: 'Cancel', onPress: () => {}, style: "cancel"},
         {text: 'Delete', onPress: () => {
           destroySession(session.id).then(() => {
-            this.props.flash.alertWithType('success', 'Success', "Session was successfully deleted!");
-            Actions.reset('app')
+            flash.alertWithType('success', 'Success', "Session was successfully deleted!");
+            return getSessions().then(() => {
+              Actions.popTo('sessions')
+            })
+          }).catch(err => {
+            flash.alertWithType('error', 'Error', "Oops something goes wrong!");
           });
         }}
       ],
@@ -38,7 +42,8 @@ class ShowNavBar extends Component {
 
   getMenu() {
     let { setShowControls, session, flash } = this.props;
-    return (
+    return (session.status === "created")
+    ? (
       <View style={appStyles.customHeaderDropDown}>
         <TouchableHighlight
           underlayColor={touchColor}
@@ -49,7 +54,6 @@ class ShowNavBar extends Component {
           style={{padding: 15}}>
           <Text style={{fontSize: 16, color: "black"}}>Edit Session</Text>
         </TouchableHighlight>
-        {session.status === "created" &&
         <TouchableHighlight
           underlayColor={touchColor}
           onPress={() => {
@@ -58,9 +62,9 @@ class ShowNavBar extends Component {
           }}
           style={{padding: 15}}>
           <Text style={{fontSize: 16, color: "black"}}>Delete Session</Text>
-        </TouchableHighlight>}
+        </TouchableHighlight>
       </View>
-    )
+    ) : null
   }
 
   render() {
@@ -76,12 +80,13 @@ class ShowNavBar extends Component {
               <Icon style={{paddingTop: 10, paddingLeft: 0}} name="chevron-left" color="white" size={22} /> :
               <Image source={backIcon} style={{width: 24, height: 24}}/>}
           </TouchableHighlight>
+          {session.status === "created" &&
           <TouchableHighlight
             style={appStyles.customHeaderRightIcon}
             underlayColor={mainColor}
             onPress={toggleShowControls}>
             <Icon name="ellipsis-v" color="white" size={22} />
-          </TouchableHighlight>
+          </TouchableHighlight>}
         </View>
         <View style={sessionStyle.showHeader}>
           <Text style={sessionStyle.showHeaderTitle}>{getClientName(session.users[0], session.name)}</Text>
@@ -104,7 +109,8 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     toggleShowControls,
     setShowControls,
-    destroySession
+    destroySession,
+    getSessions
   }, dispatch);
 }
 

@@ -9,31 +9,49 @@ import {
   fetchValidateEmails,
   fetchDeleteUserFromPhotoSession
 } from '../api';
+import moment from 'moment';
 export const GET_SESSION = 'GET_SESSION';
 export const GET_SESSIONS = 'GET_SESSIONS';
 export const SET_SELECTED_SESSION = 'SET_SELECTED_SESSION';
 export const REMOVE_SELECTED_SESSION = 'REMOVE_SELECTED_SESSION';
 export const SET_FILTERS = 'SET_FILTERS';
 export const FETCHING_CREATE_SESSION = 'FETCHING_CREATE_SESSION';
+export const FETCHING_UPDATE_SESSION = 'FETCHING_UPDATE_SESSION';
 export const TOGGLE_SHOW_CONTROLS = 'TOGGLE_SHOW_CONTROLS';
 export const SET_SHOW_CONTROLS = 'SET_SHOW_CONTROLS';
 export const SET_SESSIONS_PAGINATION = 'SET_SESSIONS_PAGINATION';
 export const FETCHING_SESSIONS = 'FETCHING_SESSIONS';
 export const CREATE_SESSION = 'CREATE_SESSION';
 export const CLEAR_PAGINATION = 'CLEAR_PAGINATION';
-const paginationDefault = {offset: 0, count: 30};
+const paginationDefault = {offset: 0, count: 50};
 
 const initialState = {
   sessions: [],
   selectedSession: {},
   fetchingSessions: false,
   fetchingCreateSession: false,
+  fetchingUpdateSession: false,
   pagination: paginationDefault,
   total_count: 0,
   filters: {order: 0, search_string: ''},
   user: {},
   showControls: false
 };
+
+export const sortSessionByDate = (sessions) => {
+  let today = moment().startOf('day'),
+      yesterday = moment(today).subtract(1, 'day'),
+      week = moment(yesterday).subtract(1, 'week'),
+      month = moment(week).subtract(1, 'month');
+  
+  return [
+    {title: "Today", data: sessions.filter(session => moment(session.date) >= today)},
+    {title: "Yesterday", data: sessions.filter(session => ((moment(session.date) >= yesterday) && (moment(session.date) < today)))},
+    {title: "Last Week", data: sessions.filter(session => ((moment(session.date) >= week) && (moment(session.date) < yesterday)))},
+    {title: "Last Month", data: sessions.filter(session => ((moment(session.date) >= month) && (moment(session.date) < week)))},
+    {title: "Older Sessions", data: sessions.filter(session => moment(session.date) < month)}
+  ]
+}
 
 export const createSession = (formData) => {
   return (dispatch, getState) => {
@@ -66,7 +84,17 @@ export const createSession = (formData) => {
 
 export const updateSession = (formData) => {
   return (dispatch, getState) => {
+    let state = getState();
     return new Promise((resolve, reject) => {
+      if(state.sessions.fetchingUpdateSession) {
+        return resolve();
+      }
+
+      dispatch({
+        type: FETCHING_UPDATE_SESSION,
+        data: true
+      });
+
       return fetchUpdateSession(formData).then(res => {
         return fetchSession(res.data.update_photo_session.id).then(res => {
           let session = res.data.photographer_photo_session;
@@ -88,6 +116,12 @@ export const updateSession = (formData) => {
           });
           
           getSessions()(dispatch, getState);
+
+          dispatch({
+            type: FETCHING_UPDATE_SESSION,
+            data: false
+          });
+
           resolve(res);
         });
       }).catch((err) => reject(err))
@@ -334,6 +368,12 @@ const ACTION_HANDLERS = {
     return ({
       ...state,
       fetchingCreateSession: action.data
+    })
+  },
+  [FETCHING_UPDATE_SESSION]: (state, action) => {
+    return ({
+      ...state,
+      fetchingUpdateSession: action.data
     })
   },
   [TOGGLE_SHOW_CONTROLS]: (state, action) => {

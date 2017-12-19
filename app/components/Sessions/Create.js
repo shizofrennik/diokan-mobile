@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { destroy, clearFields } from 'redux-form';
-import { createSession, validateEmail } from '../../store/sessions';
+import { createSession, validateEmail, getSessions } from '../../store/sessions';
 import SessionForm from '../../components/Sessions/SessionForm';
 import { Actions } from 'react-native-router-flux';
 
@@ -18,30 +18,32 @@ class Create extends Component {
   }
   
   handleSubmit(value) {
+    let {flash, getSessions, createSession, destroy, validateEmail} = this.props;
     if(!value.users.length) {
-      this.props.flash.alertWithType('info', 'Info', "To create new session, please add a client!");
+      if(flash) flash.alertWithType('info', 'Info', "To create new session, please add a client!");
       return
     }
 
     let userEmails = value.users.map(user => user.email),
       uniqueEmails = userEmails.filter((value, index, self) => self.indexOf(value) === index);
 
-    this.props.validateEmail(uniqueEmails).then(isValid => {
+    validateEmail(uniqueEmails).then(isValid => {
       if(!isValid || userEmails.length > uniqueEmails.length) {
         let message = isValid ? "Only unique client emails are allowed!" : "You can't send photo session to another photographer!";
-        this.props.flash.alertWithType('error', 'Error', message);
+        if(flash) flash.alertWithType('error', 'Error', message);
       } else {
-        this.props.createSession(value).then(res => {
+        return createSession(value).then(res => {
           if(res.create_photo_session && res.create_photo_session.id) {
-            this.props.flash.alertWithType('success', 'Success', "Session was successfully created!");
-            Actions.reset('app');
-            this.props.destroy('sessionForm');
+            if(flash) flash.alertWithType('success', 'Success', "Session was successfully created!");
+            getSessions().then(() => {
+              Actions.popTo('sessions');
+              destroy('sessionForm');
+            });
           }
-          // Actions.replace('sessions');
-        }).catch(console.log);
+        });
       }
     }).catch(() => {
-      this.props.flash.alertWithType('error', 'Error', "Oops something goes wrong!");
+      if(flash) flash.alertWithType('error', 'Error', "Oops something goes wrong!");
     });
   }
 
@@ -59,7 +61,8 @@ const mapDispatchToProps = (dispatch) => {
     destroy,
     clearFields,
     createSession,
-    validateEmail
+    validateEmail,
+    getSessions
   }, dispatch);
 }
 
