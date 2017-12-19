@@ -1,4 +1,4 @@
-export const API_SERVER_URL = 'https://diokan-backend-develop.herokuapp.com';
+export const API_SERVER_URL = 'https://diokan-backend-test.herokuapp.com';
 export const API_URL = `${API_SERVER_URL}/api/v1/photographer/graphql`;
 import {getAuthHeaders} from './utils/AuthService';
 
