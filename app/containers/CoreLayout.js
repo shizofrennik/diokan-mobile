@@ -1,7 +1,7 @@
 import React from 'react';
 import { Root, Container } from 'native-base';
 import NavigationRouter from './NavigationRouter';
-import { StatusBar } from 'react-native';
+import { StatusBar, NetInfo } from 'react-native';
 import DropdownAlert from 'react-native-dropdownalert';
 
 class RootContainer extends React.Component {
@@ -10,6 +10,19 @@ class RootContainer extends React.Component {
     this.state = {
       flash: null
     }
+  }
+  
+  componentWillMount() {
+    NetInfo.getConnectionInfo().then((connectionInfo) => {
+      console.log('Initial, type: ' + connectionInfo.type + ', effectiveType: ' + connectionInfo.effectiveType);
+    });
+
+    NetInfo.addEventListener(
+      'connectionChange',
+      (connectionInfo) => {
+        console.log('Initial, type: ' + connectionInfo.type + ', effectiveType: ' + connectionInfo.effectiveType);
+      }
+    );
   }
   
   render() {

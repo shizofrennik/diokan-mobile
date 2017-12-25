@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -62,6 +61,9 @@
 		EF2E33EB057C4EB6BB252338 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 36BA02CEF6E447E2990C5360 /* Feather.ttf */; };
 		F126E7BFF68843F694BB43F6 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0A3D6E7DF5F04190A514E97B /* Zocial.ttf */; };
 		FA9F5CE1E94242279A6D8FAD /* Roboto_medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 704829C8F2F94D22BCED0A3F /* Roboto_medium.ttf */; };
+		5CAF4D8D5B494A13BA404F6D /* libRealmReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C253CB81169D43C9A39B1078 /* libRealmReact.a */; };
+		B95C8099B7F843D0B1E23196 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AFB40110F7C4A2BA5C290F6 /* libc++.tbd */; };
+		5B63CD8187CD4C2EA31CD0A2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D77AE99DF6744745AB8D4F27 /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -365,6 +367,10 @@
 		EDC4D80676CE4614A63E1B67 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		F00C80730C6B4A4A8D728728 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		F92D7B092A8544CD965C09AD /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		BFC6881ED2F04B44B585294B /* RealmReact.xcodeproj */ = {isa = PBXFileReference; name = "RealmReact.xcodeproj"; path = "../node_modules/realm/react-native/ios/RealmReact.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		C253CB81169D43C9A39B1078 /* libRealmReact.a */ = {isa = PBXFileReference; name = "libRealmReact.a"; path = "libRealmReact.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		4AFB40110F7C4A2BA5C290F6 /* libc++.tbd */ = {isa = PBXFileReference; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
+		D77AE99DF6744745AB8D4F27 /* libz.tbd */ = {isa = PBXFileReference; name = "libz.tbd"; path = "usr/lib/libz.tbd"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = sourcecode.text-based-dylib-definition; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -394,6 +400,9 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				2C430978C3E24C178F570336 /* libA0Auth0.a in Frameworks */,
 				6535FB514CA348D3A8BCEC72 /* libRNVectorIcons.a in Frameworks */,
+				5CAF4D8D5B494A13BA404F6D /* libRealmReact.a in Frameworks */,
+				B95C8099B7F843D0B1E23196 /* libc++.tbd in Frameworks */,
+				5B63CD8187CD4C2EA31CD0A2 /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,6 +576,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				4332B720B56F4D80B7BB6207 /* A0Auth0.xcodeproj */,
 				778491A3B50844A0ABF6C250 /* RNVectorIcons.xcodeproj */,
+				BFC6881ED2F04B44B585294B /* RealmReact.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -588,6 +598,7 @@
 				00E356EF1AD99517003FC87E /* diokanmobileTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				DF626BF2E7FF433B8080A572 /* Resources */,
+				453FFE9394914D0F8F917A07 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -659,6 +670,16 @@
 			);
 			name = Resources;
 			sourceTree = "<group>";
+		};
+		453FFE9394914D0F8F917A07 /* Frameworks */ = {
+			isa = "PBXGroup";
+			children = (
+				4AFB40110F7C4A2BA5C290F6 /* libc++.tbd */,
+				D77AE99DF6744745AB8D4F27 /* libz.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -741,7 +762,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 820;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -1238,12 +1259,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-auth0/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = diokanmobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1266,12 +1289,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-auth0/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = diokanmobileTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1297,6 +1322,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-auth0/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = diokanmobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1322,6 +1348,7 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-auth0/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = diokanmobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1352,11 +1379,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-auth0/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = "diokanmobile-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1388,11 +1417,13 @@
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-auth0/ios",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = "diokanmobile-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
@@ -1425,6 +1456,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.diokanmobile-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1449,6 +1481,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
